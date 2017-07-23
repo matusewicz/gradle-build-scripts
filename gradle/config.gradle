@@ -1,0 +1,18 @@
+def env = project.hasProperty('env') ? project.getProperty('env') : 'development'
+logger.info "\nLoading config for environment '$env'."
+
+def defaultConfigFile = file("${buildscript.sourceFile.parentFile.parent}/config/config.groovy")
+def defaultConfig = new ConfigSlurper(env).parse(defaultConfigFile.toURI().toURL())
+logger.info "\nDefault config ($defaultConfigFile): "
+logger.info defaultConfig.toString()
+
+def applicationConfigFile = file("${project.projectDir}/config/config.groovy")
+def applicationConfig = new ConfigSlurper(env).parse(applicationConfigFile.toURI().toURL())
+logger.info "\nApplication config ($applicationConfigFile): "
+logger.info applicationConfig.toString()
+
+allprojects {
+    ext.config = defaultConfig.merge(applicationConfig)
+    logger.info "\nUsed configuration: "
+    logger.info config.toString()
+}
