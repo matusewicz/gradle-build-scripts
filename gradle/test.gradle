@@ -1,0 +1,12 @@
+project.tasks.withType(Test) {
+    testLogging {
+        events 'skipped', 'passed', 'failed'
+        exceptionFormat 'full'
+    }
+}
+
+project.tasks.withType(Test) {
+    reports.html.destination = project.file("${project.reporting.baseDir}/${name}")
+    reports.junitXml.destination = project.file("${project.reporting.baseDir}/${name}")
+
+}

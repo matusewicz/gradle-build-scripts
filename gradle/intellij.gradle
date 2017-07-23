@@ -1,0 +1,13 @@
+apply plugin: 'idea'
+
+project.idea.module {
+    testSourceDirs += project.file('src/integrationTest/java')
+    scopes.TEST.plus += [project.configurations.integrationTestCompile]
+    scopes.TEST.plus += [project.configurations.integrationTestRuntime]
+}
+
+project.idea.module {
+    testSourceDirs += project.file('src/smokeTest/java')
+    scopes.TEST.plus += [project.configurations.smokeTestCompile]
+    scopes.TEST.plus += [project.configurations.smokeTestRuntime]
+}

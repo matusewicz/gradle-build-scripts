@@ -1,0 +1,13 @@
+sourceSets {
+    smokeTest {
+        java.srcDir file('src/smokeTest/java')
+        resources.srcDir file('src/smokeTest/resources')
+    }
+}
+
+task smokeTest(type: Test, dependsOn: jar) {
+    group 'Verification'
+    description 'Runs the smoke tests.'
+    testClassesDirs = sourceSets.smokeTest.output.classesDirs
+    classpath = sourceSets.smokeTest.runtimeClasspath
+}

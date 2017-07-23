@@ -1,0 +1,2 @@
+apply from: "${buildscript.sourceFile.parent}/integration-test.gradle"
+apply from: "${buildscript.sourceFile.parent}/smoke-test.gradle"
