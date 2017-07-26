@@ -1,0 +1,7 @@
+FROM ${config.docker.java.image}:${config.docker.java.tag}
+MAINTAINER ${config.docker.maintainer}
+COPY ${jar.archiveName} service.jar
+RUN apk add --no-cache openjdk8
+EXPOSE 8080
+EXPOSE 7979
+CMD ["sh", "-c", "java -jar service.jar"]

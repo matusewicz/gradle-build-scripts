@@ -1,0 +1,38 @@
+buildscript {
+    repositories(allRepositories)
+
+    dependencies {
+        classpath pluginDependencies.docker
+    }
+}
+
+task dockerfile(type: Copy) {
+    from "${config.buildScriptsSubmodulePath}/docker"
+    include 'Dockerfile.template'
+    into "$buildDir/docker"
+    rename { file -> 'Dockerfile' }
+    expand(project.properties)
+}
+
+apply plugin: 'com.palantir.docker'
+apply plugin: 'com.palantir.docker-run'
+
+docker {
+    name imageName()
+    dockerfile file("$buildDir/${config.docker.file}")
+    files jar.archivePath.absolutePath
+    dependsOn tasks.jar, tasks.bootRepackage, tasks.dockerfile
+}
+
+dockerRun {
+    name "${project.name}-${project.version}"
+    image imageName()
+    daemonize true
+    ports '8080', '7979'
+}
+
+def imageName() {
+    def imageName = "${config.docker.registry?.url != "" ? "${config.docker.registry.url}/${project.name}" : "${project.name}"}"
+
+    return "$imageName:${project.version}"
+}
