@@ -1,0 +1,16 @@
+
+dependencies {
+
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: versions.springboot) {
+        exclude(module: 'spring-boot-starter-tomcat')
+        exclude(module: 'hamcrest-all')
+//        exclude(module: 'slf4j-api')
+    }
+
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: versions.jackson
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: versions.springboot
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: versions.springboot
+    compile group: 'com.google.guava', name: 'guava', version: versions.guava
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+}
