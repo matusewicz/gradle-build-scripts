@@ -13,4 +13,7 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: versions.guava
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+
+    testCompile group: 'junit', name: 'junit', version: versions.junit
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: versions.springboot
 }
